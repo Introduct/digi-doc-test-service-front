@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+  frontend:
+    container_name: frontend
+    image: ${PRIVATE_REGISTRY}${DOCKER_IMAGE:-digidoc-frontend}:${DOCKER_TAG:-latest}
+    networks:
+      dogi-doc-network:
+        aliases:
+          - frontend
+
+networks:
+  dogi-doc-network:
+    name: dogi-doc-network
