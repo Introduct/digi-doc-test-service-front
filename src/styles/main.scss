@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+
+@import 'includes';
+
+body {
+  margin: 0;
+  padding: 0;
+  color: $color-black;
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 500;
+  background: #E5E5E5;
+}
+
+.button {
+  width: 249px;
+  height: 48px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.06);
+  border: none;
+  background: $color-white;
+  border-radius: 8px;
+  color: $color-violet;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: Montserrat;
+  cursor: pointer;
+
+  &:disabled {
+    background: rgba(17, 15, 72, 0.05);
+    color: #0A092D;
+    opacity: 0.2;
+  }
+}

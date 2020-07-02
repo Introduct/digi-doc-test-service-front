@@ -1,0 +1,111 @@
+<template>
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M35.6924 28.8212C27.5029 36.68 13.5 31.114 13.5 20C13.5 8.88597 27.5028 3.32004 35.6924 11.1788C40.7692 16.0506 40.7692 23.9494 35.6924 28.8212Z"
+      fill="url(#paint0_linear)"
+    />
+    <path
+      d="M4.30761 11.1788C12.4971 3.32004 26.5 8.88597 26.5 20C26.5 31.114 12.4972 36.68 4.30761 28.8212C-0.769204 23.9494 -0.769203 16.0506 4.30761 11.1788Z"
+      fill="url(#paint1_linear)"
+    />
+    <path
+      d="M11.1788 35.6924C3.32004 27.5028 8.88597 13.5 20 13.5C31.114 13.5 36.68 27.5029 28.8212 35.6924C23.9494 40.7692 16.0506 40.7692 11.1788 35.6924Z"
+      fill="url(#paint2_linear)"
+    />
+    <path
+      d="M28.8212 4.30761C36.68 12.4972 31.114 26.5 20 26.5C8.88597 26.5 3.32004 12.4971 11.1788 4.30761C16.0506 -0.769204 23.9494 -0.769202 28.8212 4.30761Z"
+      fill="url(#paint3_linear)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear"
+        x1="-2.19239"
+        y1="35.0587"
+        x2="27.8993"
+        y2="3.70052"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop
+          offset="0.380208"
+          stop-color="#5C4EFF"
+          stop-opacity="0.8"
+        />
+        <stop
+          offset="1"
+          stop-color="#4E80FF"
+          stop-opacity="0"
+        />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear"
+        x1="42.1924"
+        y1="4.94134"
+        x2="12.1007"
+        y2="36.2995"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop
+          offset="0.380208"
+          stop-color="#5C4EFF"
+          stop-opacity="0.8"
+        />
+        <stop
+          offset="1"
+          stop-color="#4E80FF"
+          stop-opacity="0"
+        />
+      </linearGradient>
+      <linearGradient
+        id="paint2_linear"
+        x1="4.94135"
+        y1="-2.19239"
+        x2="36.2995"
+        y2="27.8993"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop
+          offset="0.380208"
+          stop-color="#5C4EFF"
+          stop-opacity="0.8"
+        />
+        <stop
+          offset="1"
+          stop-color="#4E80FF"
+          stop-opacity="0"
+        />
+      </linearGradient>
+      <linearGradient
+        id="paint3_linear"
+        x1="35.0587"
+        y1="42.1924"
+        x2="3.70052"
+        y2="12.1007"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop
+          offset="0.380208"
+          stop-color="#5C4EFF"
+          stop-opacity="0.8"
+        />
+        <stop
+          offset="1"
+          stop-color="#4E80FF"
+          stop-opacity="0"
+        />
+      </linearGradient>
+    </defs>
+  </svg>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+
+})
+</script>
