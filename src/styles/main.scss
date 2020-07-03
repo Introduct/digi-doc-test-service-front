@@ -2,6 +2,10 @@
 
 @import 'includes';
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -12,6 +16,10 @@ body {
   background: #E5E5E5;
 }
 
+p {
+  margin: 1em 0;  // todo
+}
+
 .button {
   width: 249px;
   height: 48px;
@@ -20,10 +28,18 @@ body {
   background: $color-white;
   border-radius: 8px;
   color: $color-violet;
+  stroke: $color-violet;
   font-size: 1em;
   font-weight: 600;
   font-family: Montserrat;
   cursor: pointer;
+  svg.app-icon {
+    height: 1.4em;
+    width: 1.4em;
+    display: inline-block;
+    margin-bottom: -0.3em;
+    margin-right: 1.1em;
+  }
 
   &:disabled {
     background: rgba(17, 15, 72, 0.05);

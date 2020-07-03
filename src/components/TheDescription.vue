@@ -3,11 +3,13 @@
     <p class="title">Testing the ability to sign documents with an ID Card</p>
     <div class="instructions">
       <p>
-        1. Click the Upload file button and select document you wish to sign.
+        1. Click the
+        <strong>Upload file</strong> button and select document you wish to sign.
         <br />You can also drag files to the drop area to start uploading.
       </p>
       <p>
-        2. Click the Sign file button to sign your file.
+        2. Click the
+        <strong>Sign file</strong> button to sign your file.
         <br />After that the file is ready to download.
       </p>
     </div>

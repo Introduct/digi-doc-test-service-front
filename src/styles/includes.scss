@@ -2,3 +2,7 @@ $color-black: #0A092D;
 $color-violet: #5C4EFF;
 $color-orange: #FF8E4E;
 $color-white: #FFFFFF;
+$color-grey: transparentize($color-black, 0.8);
+$color-grey-background: rgba(17, 15, 72, 0.05);
+
+$margin-global: 7%;
