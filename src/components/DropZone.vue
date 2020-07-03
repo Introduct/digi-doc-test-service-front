@@ -1,29 +1,34 @@
 <template>
   <div
     class="drop-zone-root"
-    :class="{ 'drop-hovered': dropHovered }"
+    :class="{ 'drop-hovered': dropHovered, borderless: status || signature }"
     @dragenter="onDragEnter"
     @dragleave="onDragLeave"
     @drop.prevent="onDrop"
     @dragover.prevent
   >
+    <div
+      v-if="status"
+      class="overlay busy"
+    >
+      <span class="status">{{status}}</span>
+      <SpinnerIcon
+        class="spinner"
+        color="#EB905A"
+      />
+    </div>
+    <SignedBy
+      v-else-if="signature"
+      class="overlay"
+      :signature="signature"
+    />
+    <p v-else-if="!files.length">Drop your files here</p>
     <FileItem
       v-for="(file, i) of files"
       class="file-item"
       :key="i"
       :name="file.name"
     />
-    <p v-if="!files.length">Drop your files here</p>
-    <div
-      v-if="busy"
-      class="busy-overlay"
-    >
-      Uploading
-      <SpinnerIcon
-        class="spinner"
-        color="#EB905A"
-      />
-    </div>
   </div>
 </template>
 
@@ -31,26 +36,28 @@
 import Vue from 'vue'
 import FileItem from './FileItem.vue'
 import SpinnerIcon from './SpinnerIcon.vue'
+import SignedBy from './SignedBy.vue'
 
 export default Vue.extend({
   components: {
     FileItem,
     SpinnerIcon,
+    SignedBy,
   },
   props: {
     files: {
       type: Array,
       required: true,
     },
-    busy: {
+    status: {
+      type: String,
+      default: undefined,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
     signature: {
-      type: Object,
-      required: false,
-    },
-    validation: {
       type: Object,
       required: false,
     },
@@ -64,18 +71,24 @@ export default Vue.extend({
   computed: {},
   methods: {
     onDrop(e: DragEvent) {
-      let files = [...e.dataTransfer.items]  // todo
-        .filter(({ kind }) => kind === 'file')
-        .map(x => x.getAsFile())
+      if (!this.disabled) {
+        let files = [...e.dataTransfer.items]  // todo
+          .filter(({ kind }) => kind === 'file')
+          .map(x => x.getAsFile())
 
-      this.dropHovered = false
-      this.$emit('input', files)
+        this.dropHovered = false
+        this.$emit('input', files)
+      }
     },
     onDragEnter() {
-      this.dropHovered = true
+      if (!this.disabled) {
+        this.dropHovered = true
+      }
     },
     onDragLeave() {
-      this.dropHovered = false
+      if (!this.disabled) {
+        this.dropHovered = false
+      }
     },
   },
 })
@@ -97,6 +110,9 @@ export default Vue.extend({
   border: 3px dashed $color-grey;
   border-radius: 5px;
   color: $color-grey;
+  &.borderless {
+    border-color: rgba(0, 0, 0, 0);
+  }
 }
 .drop-hovered {
   border-color: $color-black;
@@ -104,7 +120,7 @@ export default Vue.extend({
 .file-item {
   margin: 0.5em;
 }
-.busy-overlay {
+.overlay {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -112,11 +128,16 @@ export default Vue.extend({
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: $color-orange;
-  background-color: #fef9f6;
+  &.busy {
+    color: $color-orange;
+    background-color: #fef9f6;
+  }
 }
 .spinner {
   width: 3em;
-  margin-bottom: 1em;
+  margin-top: 1em;
+}
+.status {
+  text-transform: capitalize;
 }
 </style>

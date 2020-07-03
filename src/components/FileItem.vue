@@ -40,7 +40,7 @@ export default Vue.extend({
       if (this.name.length <= maxLength) {
         return this.name
       }
-      return this.name.substring(0, 8) + '…' + this.name.slice(-4)
+      return this.name.substring(0, 6) + '…' + this.name.slice(-6)
     }
   },
   methods: {},

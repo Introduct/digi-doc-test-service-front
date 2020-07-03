@@ -10,14 +10,14 @@
     <div>
       <button
         class="button"
-        :disabled="container"
+        :disabled="container || busy"
         @click="clickInput"
       >
         <AppIcon icon="upload" />Upload file
       </button>
       <button
         class="button orange"
-        :disabled="!files.length"
+        :disabled="!files.length || busy"
         @click="sign"
       >
         <AppIcon icon="sign" />Sign files
@@ -26,19 +26,21 @@
     <DropZone
       class="drop-zone"
       :files="files"
-      :busy="status === 'uploading'"
+      :status="status"
+      :disabled="busy"
+      :signature="signature"
       @input="addFiles($event)"
     />
     <button
       class="button main mt"
-      :disabled="!container"
+      :disabled="!container || busy"
       @click="download"
     >
       <AppIcon icon="download" />Download
     </button>
     <button
       class="button mt"
-      :disabled="!container"
+      :disabled="!container || busy"
       @click="generateLink"
     >
       <AppIcon icon="link" />Generate link
@@ -67,11 +69,14 @@ export default Vue.extend({
       status: undefined,
       files: [],
       container: undefined,
-      validation: undefined,
+      signature: undefined,
     }
   },
   created() { },
   computed: {
+    busy() {
+      return ['uploading', 'signing', 'deleting'].includes(this.status)
+    },
   },
   methods: {
     clickInput() {
@@ -81,7 +86,8 @@ export default Vue.extend({
       this.status = 'uploading'
       try {
         for (let file of files) {
-          this.files.push(await api.uploadFile(file))
+          let res = await api.uploadFile(file)
+          this.files.push(res)
         }
         console.log(this.files)
       } catch (e) {
@@ -91,9 +97,14 @@ export default Vue.extend({
         this.status = undefined
       }
     },
+    async deleteFile() {
+      this.status = 'deleting'
+
+    },
     async sign() {
       this.status = 'signing'
       try {
+        await timeout(1000)
         let certificate = await hwcrypto.getCertificate()
         let signData = await api.post('signing-data', {
           certInHex: certificate.hex,
@@ -109,7 +120,7 @@ export default Vue.extend({
           signingDataId: signData.id,
           signatureInHex: signature.hex,
         })
-        this.validation = await api.get('containers', [this.container.id, 'validate'])
+        this.signature = await api.get('containers', [this.container.id, 'validate'])
       } catch (e) {
         console.error(e)
         // todo

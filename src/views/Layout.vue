@@ -43,6 +43,7 @@ export default Vue.extend({
 .main-pane {
   flex-grow: 1;
   padding-left: $margin-global;
+  padding-bottom: 1rem;
   padding-top: 2em;
   background-color: $color-white;
   box-shadow: 0px -20px 20px rgba(0, 0, 0, 0.01);
