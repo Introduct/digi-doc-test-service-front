@@ -84,7 +84,6 @@ export default Vue.extend({
   },
   props: {},
   data: createInitialData,
-  created() { },
   computed: {
     busy() {
       return ['uploading', 'signing', 'deleting'].includes(this.status)
@@ -128,7 +127,7 @@ export default Vue.extend({
         let certificate = await hwcrypto.getCertificate()
         let signData = await api.post('signing-data', {
           certInHex: certificate.hex,
-          fileIds: this.files.map(x => x.id)
+          fileIds: this.files.map(x => x.id),
         })
         let signature = await hwcrypto.sign(certificate, {
           type: 'SHA-256',

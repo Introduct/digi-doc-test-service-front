@@ -43,13 +43,11 @@ export default Vue.extend({
   data() {
     return {}
   },
-  created() { },
   computed: {
     iconSubcomponent() {
       return 'Icon' + this.icon[0].toUpperCase() + this.icon.substring(1).toLowerCase()
-    }
+    },
   },
-  methods: {},
 })
 </script>
 

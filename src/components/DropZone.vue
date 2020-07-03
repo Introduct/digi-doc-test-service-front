@@ -11,7 +11,7 @@
       v-if="status"
       class="overlay busy"
     >
-      <span class="status">{{status}}</span>
+      <span class="status">{{ status }}</span>
       <SpinnerIcon
         class="spinner"
         color="#EB905A"
@@ -25,8 +25,8 @@
     <p v-else-if="!files.length">Drop your files here</p>
     <FileItem
       v-for="(file, i) of files"
-      class="file-item"
       :key="i"
+      class="file-item"
       :file="file"
       @delete="$emit('delete', $event)"
     />
@@ -61,6 +61,7 @@ export default Vue.extend({
     signature: {
       type: Object,
       required: false,
+      default: undefined,
     },
   },
   data() {
@@ -68,8 +69,6 @@ export default Vue.extend({
       dropHovered: false,
     }
   },
-  created() { },
-  computed: {},
   methods: {
     onDrop(e: DragEvent) {
       if (!this.disabled) {

@@ -16,15 +16,12 @@ import TheLogoIcon from './TheLogoIcon.vue'
 
 export default Vue.extend({
   components: {
-    TheLogoIcon
+    TheLogoIcon,
   },
   props: {},
   data() {
     return {}
   },
-  created() { },
-  computed: {},
-  methods: {},
 })
 </script>
 

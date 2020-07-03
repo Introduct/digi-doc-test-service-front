@@ -1,7 +1,7 @@
 <template>
   <div class="file-item-root">
     <div class="icon-and-closer">
-      <div></div>
+      <div />
       <svg
         class="file-icon"
         viewBox="0 0 36 44"
@@ -26,24 +26,21 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AppIcon from './AppIcon.vue'
 import CloserIcon from './CloserIcon.vue'
 
 export default Vue.extend({
   components: {
-    AppIcon,
     CloserIcon,
   },
   props: {
     file: {
       type: Object,
       required: true,
-    }
+    },
   },
   data() {
     return {}
   },
-  created() { },
   computed: {
     namePrepared() {
       const maxLength = 10
@@ -51,7 +48,7 @@ export default Vue.extend({
         return this.file.name
       }
       return this.file.name.substring(0, 6) + '…' + this.file.name.slice(-6)
-    }
+    },
   },
 })
 </script>

@@ -10,7 +10,6 @@
         y1="0%"
         x2="65.682%"
         y2="23.865%"
-        id="a"
       >
         <stop
           :stop-color="color"
@@ -35,7 +34,6 @@
       <g transform="translate(1 1)">
         <path
           d="M36 18c0-9.94-8.06-18-18-18"
-          id="Oval-2"
           stroke="url(#a)"
           stroke-width="2"
         >
@@ -76,7 +74,7 @@ export default Vue.extend({
     color: {
       type: String,
       default: '#fff',
-    }
+    },
   },
 })
 </script>

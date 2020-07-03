@@ -44,16 +44,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AppIcon from './AppIcon.vue'
 
 export default Vue.extend({
   components: {
-    AppIcon,
   },
   props: {
     signature: {
       type: Object,
       required: false,
+      default: undefined,
     },
   },
   computed: {

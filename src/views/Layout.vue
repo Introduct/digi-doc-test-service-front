@@ -25,9 +25,6 @@ export default Vue.extend({
   data() {
     return {}
   },
-  created() { },
-  computed: {},
-  methods: {},
 })
 </script>
 
