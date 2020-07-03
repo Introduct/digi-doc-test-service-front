@@ -22,7 +22,12 @@
         <AppIcon icon="sign" />Sign files
       </button>
     </div>
-    <DropZone class="drop-zone" />
+    <DropZone
+      class="drop-zone"
+      :files="files"
+      :busy="status === 'uploading'"
+      @input="addFiles($event)"
+    />
     <button
       class="button main mt"
       :disabled="!signature"
@@ -58,7 +63,7 @@ export default Vue.extend({
   props: {},
   data() {
     return {
-      status: Status.clean,
+      status: undefined,
       files: [],
       signature: undefined,
     }
@@ -70,14 +75,14 @@ export default Vue.extend({
       this.$refs.input.click()
     },
     async addFiles(files: FileList) {
-      this.status = Status.uploading
+      this.status = 'uploading'
       try {
         await timeout(1000)
-        this.status = Status.uploaded
         this.files.push(...files)
+        console.log(this.files)
       } catch (e) {
-        this.status = Status.clean
       } finally {
+        this.status = undefined
       }
     }
   },
