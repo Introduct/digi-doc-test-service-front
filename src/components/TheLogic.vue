@@ -5,7 +5,7 @@
       class="input"
       type="file"
       multiple
-      @input="addFiles($event.target.files)"
+      @change="addFiles($event.target.files)"
     />
     <div>
       <button
@@ -30,6 +30,7 @@
       :disabled="busy"
       :signature="signature"
       @input="addFiles($event)"
+      @delete="deleteFile($event)"
     />
     <button
       class="button main mt"
@@ -89,17 +90,26 @@ export default Vue.extend({
           let res = await api.uploadFile(file)
           this.files.push(res)
         }
-        console.log(this.files)
       } catch (e) {
         console.error(e)
         // todo
       } finally {
         this.status = undefined
       }
+      this.$refs.input.value = ''
     },
-    async deleteFile() {
+    async deleteFile(file) {
       this.status = 'deleting'
-
+      try {
+        await api.deleteFile(file.id)
+        // await timeout(5000)
+        this.files = this.files.filter(x => x.id !== file.id)
+      } catch (e) {
+        console.error(e)
+        // todo
+      } finally {
+        this.status = undefined
+      }
     },
     async sign() {
       this.status = 'signing'

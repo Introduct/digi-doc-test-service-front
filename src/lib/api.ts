@@ -36,6 +36,10 @@ class ApiClient {
     return ret.data
   }
 
+  deleteFile(id) {
+    return this.http.delete(`${this.base}/files/${id}`)
+  }
+
   getContainerDownloadLink(id: string) {
     return `${this.base}/containers/${id}`
   }

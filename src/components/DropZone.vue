@@ -1,7 +1,7 @@
 <template>
   <div
     class="drop-zone-root"
-    :class="{ 'drop-hovered': dropHovered, borderless: status || signature }"
+    :class="{ 'drop-hovered': dropHovered, borderless: status || signature, 'forced-height': !files.length }"
     @dragenter="onDragEnter"
     @dragleave="onDragLeave"
     @drop.prevent="onDrop"
@@ -27,7 +27,8 @@
       v-for="(file, i) of files"
       class="file-item"
       :key="i"
-      :name="file.name"
+      :file="file"
+      @delete="$emit('delete', $event)"
     />
   </div>
 </template>
@@ -112,6 +113,9 @@ export default Vue.extend({
   color: $color-grey;
   &.borderless {
     border-color: rgba(0, 0, 0, 0);
+  }
+  &.forced-height {
+    height: 136px; // todo
   }
 }
 .drop-hovered {
