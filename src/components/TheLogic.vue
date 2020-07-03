@@ -82,7 +82,6 @@ export default Vue.extend({
     AppIcon,
     DropZone,
   },
-  props: {},
   data: createInitialData,
   computed: {
     busy() {

@@ -18,10 +18,6 @@ export default Vue.extend({
   components: {
     TheLogoIcon,
   },
-  props: {},
-  data() {
-    return {}
-  },
 })
 </script>
 

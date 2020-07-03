@@ -38,9 +38,6 @@ export default Vue.extend({
       required: true,
     },
   },
-  data() {
-    return {}
-  },
   computed: {
     namePrepared() {
       const maxLength = 10

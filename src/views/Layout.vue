@@ -21,7 +21,6 @@ export default Vue.extend({
     TheDescription,
     TheLogic,
   },
-  props: {},
   data() {
     return {}
   },
