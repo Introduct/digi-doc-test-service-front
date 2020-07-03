@@ -23,15 +23,23 @@
         <AppIcon icon="sign" />Sign files
       </button>
     </div>
-    <DropZone
-      class="drop-zone"
-      :files="files"
-      :status="status"
-      :disabled="busy"
-      :signature="signature"
-      @input="addFiles($event)"
-      @delete="deleteFile($event)"
-    />
+    <div class="drop-zone">
+      <DropZone
+        class
+        :files="files"
+        :status="status"
+        :disabled="busy"
+        :signature="signature"
+        @input="addFiles($event)"
+        @delete="deleteFile($event)"
+      />
+      <AppIcon
+        v-if="files.length"
+        class="refresh-button"
+        icon="refresh"
+        @click.native="reset"
+      />
+    </div>
     <button
       class="button main mt"
       :disabled="!container || busy"
@@ -40,6 +48,16 @@
       <AppIcon icon="download" />Download
     </button>
     <button
+      v-if="shortLink"
+      class="button mt"
+      :disabled="!container || busy"
+      @click="copyLink"
+    >
+      <AppIcon icon="copy" />
+      {{ shortLink }}
+    </button>
+    <button
+      v-else
       class="button mt"
       :disabled="!container || busy"
       @click="generateLink"
@@ -65,14 +83,7 @@ export default Vue.extend({
     DropZone,
   },
   props: {},
-  data() {
-    return {
-      status: undefined,
-      files: [],
-      container: undefined,
-      signature: undefined,
-    }
-  },
+  data: createInitialData,
   created() { },
   computed: {
     busy() {
@@ -143,7 +154,8 @@ export default Vue.extend({
     },
     async generateLink() {
       try {
-
+        await timeout(2000)
+        this.shortLink = 'foo'
       } catch (e) {
         console.error(e)
         this.reportError(e)
@@ -151,10 +163,17 @@ export default Vue.extend({
         this.status = undefined
       }
     },
+    async copyLink() {
+      await navigator.clipboard.writeText(this.link)
+    },
+    reset() {
+      Object.assign(this.$data, createInitialData())
+    },
     reportError(e) {
       console.error(e)
       let message = e?.response?.data.message
         || e.message
+        || e.errorMessage
         || JSON.stringify(e)
 
       this.$toasted.show(`Error: ${message}`, {
@@ -165,6 +184,17 @@ export default Vue.extend({
     },
   },
 })
+
+function createInitialData() {
+  return {
+    status: undefined,
+    files: [],
+    container: undefined,
+    signature: undefined,
+    shortLink: undefined,
+  }
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -180,11 +210,19 @@ export default Vue.extend({
 .drop-zone {
   width: 70%;
   margin-top: 1.5em;
+  position: relative;
 }
 .button {
   margin: 0 1.5rem;
 }
 .mt {
   margin-top: 2em;
+}
+.refresh-button {
+  position: absolute;
+  width: 1.2em;
+  top: 0;
+  right: -1.8em;
+  cursor: pointer;
 }
 </style>
