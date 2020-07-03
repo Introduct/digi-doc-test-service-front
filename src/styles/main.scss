@@ -41,9 +41,21 @@ p {
     margin-right: 1.1em;
   }
 
+  &.orange {
+    color: $color-orange;
+    stroke: $color-orange;
+  }
+
+  &.main {
+    color: $color-white;
+    stroke: $color-white;
+    background: $color-violet;
+  }
+
   &:disabled {
     background: rgba(17, 15, 72, 0.05);
-    color: #0A092D;
-    opacity: 0.2;
+    color: transparentize($color-black, 0.8);
+    stroke:transparentize($color-black, 0.8);
+    box-shadow: none;
   }
 }
