@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-toasted": "^1.1.28"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",

@@ -92,7 +92,7 @@ export default Vue.extend({
         }
       } catch (e) {
         console.error(e)
-        // todo
+        this.reportError(e)
       } finally {
         this.status = undefined
       }
@@ -106,7 +106,7 @@ export default Vue.extend({
         this.files = this.files.filter(x => x.id !== file.id)
       } catch (e) {
         console.error(e)
-        // todo
+        this.reportError(e)
       } finally {
         this.status = undefined
       }
@@ -132,7 +132,7 @@ export default Vue.extend({
         })
         this.signature = await api.get('containers', [this.container.id, 'validate'])
       } catch (e) {
-        console.error(e)
+        this.reportError(e)
         // todo
       } finally {
         this.status = undefined
@@ -142,7 +142,26 @@ export default Vue.extend({
       window.location.assign(api.getContainerDownloadLink(this.container))
     },
     async generateLink() {
+      try {
 
+      } catch (e) {
+        console.error(e)
+        this.reportError(e)
+      } finally {
+        this.status = undefined
+      }
+    },
+    reportError(e) {
+      console.error(e)
+      let message = e?.response?.data.message
+        || e.message
+        || JSON.stringify(e)
+
+      this.$toasted.show(`Error: ${message}`, {
+        type: 'error',
+        duration: 10000,
+        theme: 'bubble',
+      })
     },
   },
 })
