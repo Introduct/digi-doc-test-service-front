@@ -27,9 +27,7 @@ export default Vue.extend({
 
 <style scoped lang="scss">
 @import "@/styles/includes";
-.header {
-  // height: 88px;
-}
+
 .logo {
   display: flex;
   align-items: center;
