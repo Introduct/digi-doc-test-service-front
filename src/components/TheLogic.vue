@@ -113,7 +113,6 @@ export default Vue.extend({
       this.status = 'deleting'
       try {
         await api.deleteFile(file.id)
-        // await timeout(5000)
         this.files = this.files.filter(x => x.id !== file.id)
       } catch (e) {
         console.error(e)
