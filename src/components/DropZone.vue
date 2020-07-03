@@ -18,10 +18,11 @@
       v-if="busy"
       class="busy-overlay"
     >
+      Uploading
       <SpinnerIcon
         class="spinner"
         color="#EB905A"
-      />Uploading
+      />
     </div>
   </div>
 </template>
@@ -44,7 +45,15 @@ export default Vue.extend({
     busy: {
       type: Boolean,
       default: false,
-    }
+    },
+    signature: {
+      type: Object,
+      required: false,
+    },
+    validation: {
+      type: Object,
+      required: false,
+    },
   },
   data() {
     return {

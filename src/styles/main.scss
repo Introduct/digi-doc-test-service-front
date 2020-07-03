@@ -57,5 +57,6 @@ p {
     color: transparentize($color-black, 0.8);
     stroke:transparentize($color-black, 0.8);
     box-shadow: none;
+    cursor: unset;
   }
 }

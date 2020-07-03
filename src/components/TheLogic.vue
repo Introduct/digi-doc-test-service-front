@@ -10,7 +10,7 @@
     <div>
       <button
         class="button"
-        :disabled="signature"
+        :disabled="container"
         @click="clickInput"
       >
         <AppIcon icon="upload" />Upload file
@@ -18,6 +18,7 @@
       <button
         class="button orange"
         :disabled="!files.length"
+        @click="sign"
       >
         <AppIcon icon="sign" />Sign files
       </button>
@@ -30,13 +31,15 @@
     />
     <button
       class="button main mt"
-      :disabled="!signature"
+      :disabled="!container"
+      @click="download"
     >
       <AppIcon icon="download" />Download
     </button>
     <button
       class="button mt"
-      :disabled="!signature"
+      :disabled="!container"
+      @click="generateLink"
     >
       <AppIcon icon="link" />Generate link
     </button>
@@ -48,12 +51,10 @@ import Vue from 'vue'
 import AppIcon from './AppIcon.vue'
 import DropZone from './DropZone.vue'
 import { timeout } from '../lib/debug'
+import { api } from '../lib/api'
+import { hwcrypto } from '@/lib/3rdparty/hwcrypto'
 
-const enum Status {
-  clean,
-  uploading,
-  uploaded,
-}
+
 
 export default Vue.extend({
   components: {
@@ -65,11 +66,13 @@ export default Vue.extend({
     return {
       status: undefined,
       files: [],
-      signature: undefined,
+      container: undefined,
+      validation: undefined,
     }
   },
   created() { },
-  computed: {},
+  computed: {
+  },
   methods: {
     clickInput() {
       this.$refs.input.click()
@@ -77,14 +80,49 @@ export default Vue.extend({
     async addFiles(files: FileList) {
       this.status = 'uploading'
       try {
-        await timeout(1000)
-        this.files.push(...files)
+        for (let file of files) {
+          this.files.push(await api.uploadFile(file))
+        }
         console.log(this.files)
       } catch (e) {
+        console.error(e)
+        // todo
       } finally {
         this.status = undefined
       }
-    }
+    },
+    async sign() {
+      this.status = 'signing'
+      try {
+        let certificate = await hwcrypto.getCertificate()
+        let signData = await api.post('signing-data', {
+          certInHex: certificate.hex,
+          fileIds: this.files.map(x => x.id)
+        })
+        let signature = await hwcrypto.sign(certificate, {
+          type: 'SHA-256',
+          hex: signData.signatureInHex,
+        }, {
+          lang: 'en',  // todo: remove?
+        })
+        this.container = await api.post(`containers`, {
+          signingDataId: signData.id,
+          signatureInHex: signature.hex,
+        })
+        this.validation = await api.get('containers', [this.container.id, 'validate'])
+      } catch (e) {
+        console.error(e)
+        // todo
+      } finally {
+        this.status = undefined
+      }
+    },
+    download() {
+      window.location.assign(api.getContainerDownloadLink(this.container))
+    },
+    async generateLink() {
+
+    },
   },
 })
 </script>
