@@ -168,7 +168,8 @@ export default Vue.extend({
     },
     reportError(e) {
       console.error(e)
-      let message = e?.response?.data.message
+      let message = e?.response?.data?.errors[0]?.message
+        || e?.response?.data.message
         || e.message
         || e.errorMessage
         || JSON.stringify(e)
@@ -176,7 +177,7 @@ export default Vue.extend({
       this.$toasted.show(`Error: ${message}`, {
         type: 'error',
         duration: 10000,
-        theme: 'bubble',
+        position: 'bottom-center',
       })
     },
   },
