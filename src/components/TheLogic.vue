@@ -122,10 +122,11 @@ export default Vue.extend({
     async sign() {
       this.status = 'signing'
       try {
-        await timeout(1000)
-        let certificate = await hwcrypto.getCertificate()
+        let certificate = await hwcrypto.getCertificate({
+          lang: 'en',
+        })
         let signData = await api.post('signing-data', {
-          certInHex: certificate.hex,
+          certificateInHex: certificate.hex,
           fileIds: this.files.map(x => x.id),
         })
         let signature = await hwcrypto.sign(certificate, {
@@ -147,7 +148,7 @@ export default Vue.extend({
       }
     },
     download() {
-      window.location.assign(api.getContainerDownloadLink(this.container))
+      window.location.assign(api.getContainerDownloadLink(this.container.id))
     },
     async generateLink() {
       try {
@@ -168,7 +169,7 @@ export default Vue.extend({
     },
     reportError(e) {
       console.error(e)
-      let message = e?.response?.data?.errors[0]?.message
+      let message = e?.response?.data?.errors?.[0]?.message
         || e?.response?.data.message
         || e.message
         || e.errorMessage

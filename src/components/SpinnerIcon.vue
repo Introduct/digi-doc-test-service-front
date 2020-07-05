@@ -6,6 +6,7 @@
   >
     <defs>
       <linearGradient
+        id="a"
         x1="8.042%"
         y1="0%"
         x2="65.682%"

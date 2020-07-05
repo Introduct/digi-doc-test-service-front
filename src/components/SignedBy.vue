@@ -61,7 +61,7 @@ export default Vue.extend({
       return ['invalid']
     },
     signedByText() {
-      let datetime = new Date(this.signature.signedOn) as Date
+      let datetime = new Date(this.signature.signedOn + 'Z') as Date
       let date = [
         datetime.getDate(),
         datetime.getMonth() + 1,

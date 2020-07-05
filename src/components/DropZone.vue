@@ -1,7 +1,7 @@
 <template>
   <div
     class="drop-zone-root"
-    :class="{ 'drop-hovered': dropHovered, borderless: status || signature, 'forced-height': !files.length }"
+    :class="classes"
     @dragenter="onDragEnter"
     @dragleave="onDragLeave"
     @drop.prevent="onDrop"
@@ -23,13 +23,15 @@
       :signature="signature"
     />
     <p v-else-if="!files.length">Drop your files here</p>
-    <FileItem
-      v-for="(file, i) of files"
-      :key="i"
-      class="file-item"
-      :file="file"
-      @delete="$emit('delete', $event)"
-    />
+    <div v-else>
+      <FileItem
+        v-for="(file, i) of files"
+        :key="i"
+        class="file-item"
+        :file="file"
+        @delete="$emit('delete', $event)"
+      />
+    </div>
   </div>
 </template>
 
@@ -68,6 +70,15 @@ export default Vue.extend({
     return {
       dropHovered: false,
     }
+  },
+  computed: {
+    classes() {
+      return {
+        'drop-hovered': this.dropHovered,
+        'borderless': status || this.signature,
+        'forced-height': !this.files.length || this.status || this.signature,
+      }
+    },
   },
   methods: {
     onDrop(e: DragEvent) {
