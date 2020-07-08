@@ -71,7 +71,6 @@
 import Vue from 'vue'
 import AppIcon from './AppIcon.vue'
 import DropZone from './DropZone.vue'
-import { timeout } from '../lib/debug'
 import { api } from '../lib/api'
 import { hwcrypto } from '@/lib/3rdparty/hwcrypto'
 
@@ -85,7 +84,7 @@ export default Vue.extend({
   data: createInitialData,
   computed: {
     busy() {
-      return ['uploading', 'signing', 'deleting'].includes(this.status)
+      return !!this.status
     },
   },
   methods: {
@@ -150,8 +149,8 @@ export default Vue.extend({
     },
     async generateLink() {
       try {
-        await timeout(2000)
-        this.shortLink = 'foo'
+        this.status = 'getting short link'
+        this.shortLink = await api.get('containers', [this.container.id, 'link'])
       } catch (e) {
         this.reportError(e)
       } finally {
