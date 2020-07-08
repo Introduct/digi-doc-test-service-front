@@ -150,7 +150,7 @@ export default Vue.extend({
     async generateLink() {
       try {
         this.status = 'getting short link'
-        this.shortLink = await api.get('containers', [this.container.id, 'link'])
+        this.shortLink = (await api.get('containers', [this.container.id, 'link'])).link
       } catch (e) {
         this.reportError(e)
       } finally {
@@ -158,7 +158,16 @@ export default Vue.extend({
       }
     },
     async copyLink() {
-      await navigator.clipboard.writeText(this.link)
+      try {
+        await navigator.clipboard.writeText(this.shortLink)
+        this.$toasted.show(`Link copied to clipboard`, {
+          type: 'info',
+          duration: 1000,
+          position: 'bottom-center',
+        })
+      } catch (e) {
+        this.reportError(e)
+      }
     },
     reset() {
       Object.assign(this.$data, createInitialData())
