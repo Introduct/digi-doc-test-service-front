@@ -23,7 +23,10 @@
       :signature="signature"
     />
     <p v-else-if="!files.length">Drop your files here</p>
-    <div v-else>
+    <div
+      v-else
+      class="file-list"
+    >
       <FileItem
         v-for="(file, i) of files"
         :key="i"
@@ -113,7 +116,6 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
   min-height: 6em;
   padding: 1em;
   font-weight: bold;
@@ -127,6 +129,12 @@ export default Vue.extend({
   &.forced-height {
     height: 136px; // todo
   }
+}
+.file-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .drop-hovered {
   border-color: $color-black;
