@@ -17,7 +17,7 @@
       </button>
       <button
         class="button orange"
-        :disabled="!files.length || busy"
+        :disabled="!files.length || busy || signature"
         @click="sign"
       >
         <AppIcon icon="sign" />Sign files
