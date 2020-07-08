@@ -174,7 +174,7 @@ export default Vue.extend({
 
       this.$toasted.show(`Error: ${message}`, {
         type: 'error',
-        duration: 10000,
+        duration: 5000,
         position: 'bottom-center',
       })
     },
