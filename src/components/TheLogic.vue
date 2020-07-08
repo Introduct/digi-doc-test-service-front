@@ -100,7 +100,6 @@ export default Vue.extend({
           this.files.push(res)
         }
       } catch (e) {
-        console.error(e)
         this.reportError(e)
       } finally {
         this.status = undefined
@@ -113,7 +112,6 @@ export default Vue.extend({
         await api.deleteFile(file.id)
         this.files = this.files.filter(x => x.id !== file.id)
       } catch (e) {
-        console.error(e)
         this.reportError(e)
       } finally {
         this.status = undefined
@@ -155,7 +153,6 @@ export default Vue.extend({
         await timeout(2000)
         this.shortLink = 'foo'
       } catch (e) {
-        console.error(e)
         this.reportError(e)
       } finally {
         this.status = undefined
