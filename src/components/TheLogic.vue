@@ -7,7 +7,7 @@
       multiple
       @change="addFiles($event.target.files)"
     />
-    <div>
+    <div class="upload-and-sign-buttons">
       <button
         class="button"
         :disabled="container || busy"
@@ -207,6 +207,15 @@ function createInitialData() {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.upload-and-sign-buttons {
+  display: flex;
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+    .button + .button {
+      margin-top: 1em;
+    }
+  }
 }
 .input {
   display: none;

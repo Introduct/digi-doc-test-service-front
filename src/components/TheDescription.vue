@@ -34,6 +34,7 @@ export default Vue.extend({
   padding-left: 1em;
   p {
     line-height: 24px;
+    padding-right: 2em;
   }
 }
 </style>
